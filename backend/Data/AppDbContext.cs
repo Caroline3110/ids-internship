@@ -12,7 +12,21 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().ToTable("User");
-        modelBuilder.Entity<Role>().ToTable("role");
+        var user = modelBuilder.Entity<User>();
+        user.ToTable("User");
+        user.Property(u => u.UserId).HasColumnName("userid");
+        user.Property(u => u.FirstName).HasColumnName("firstname");
+        user.Property(u => u.LastName).HasColumnName("lastname");
+        user.Property(u => u.Email).HasColumnName("email");
+        user.Property(u => u.PasswordHash).HasColumnName("passwordhash");
+        user.Property(u => u.RoleId).HasColumnName("roleid");
+        user.Property(u => u.IsActive).HasColumnName("isactive");
+        user.Property(u => u.CreatedDate).HasColumnName("createddate");
+
+        var role = modelBuilder.Entity<Role>();
+        role.ToTable("role");
+        role.Property(r => r.RoleId).HasColumnName("roleid");
+        role.Property(r => r.RoleName).HasColumnName("rolename");
+        role.Property(r => r.Description).HasColumnName("description");
     }
 }
